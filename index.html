@@ -1,0 +1,2161 @@
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Kholi Poli 12 - GitHub Pages Ready v2 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>خولی پۆلی ١٢ | ناوەندی فەرمی پاڵەوانێتی</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050a14;
+      --bg-2: #0a1222;
+      --card: rgba(17, 26, 46, 0.88);
+      --card-solid: #111a2e;
+      --card-hover: #17233d;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-gold: rgba(245, 197, 66, 0.35);
+      --gold: #f5c542;
+      --gold-2: #ffdf7e;
+      --gold-dim: rgba(245, 197, 66, 0.14);
+      --green: #10b981;
+      --green-dim: rgba(16, 185, 129, 0.14);
+      --cyan: #38bdf8;
+      --cyan-dim: rgba(56, 189, 248, 0.14);
+      --red: #ef4444;
+      --red-dim: rgba(239, 68, 68, 0.15);
+      --amber: #f59e0b;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Noto Kufi Arabic', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(245, 197, 66, 0.14), transparent 60%),
+        radial-gradient(ellipse 60% 40% at 90% 10%, rgba(16, 185, 129, 0.10), transparent 55%),
+        radial-gradient(ellipse 60% 40% at 10% 30%, rgba(56, 189, 248, 0.09), transparent 55%);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 85px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    #confettiCanvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 300;
+    }
+
+    .container {
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 14px;
+    }
+
+    /* Hero Banner */
+    .hero {
+      position: relative;
+      background: linear-gradient(145deg, rgba(20, 32, 58, 0.95) 0%, rgba(9, 15, 28, 0.98) 100%);
+      border: 1px solid var(--border-gold);
+      border-radius: 24px;
+      padding: 20px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: -80px;
+      left: -60px;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(245, 197, 66, 0.18), transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-emblem {
+      width: 56px;
+      height: 56px;
+      border-radius: 17px;
+      background: linear-gradient(135deg, var(--gold-2), var(--gold), #c78d14);
+      color: #090d16;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      box-shadow: 0 8px 25px rgba(245, 197, 66, 0.35);
+      flex-shrink: 0;
+    }
+
+    .brand h1 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      background: linear-gradient(90deg, #fff 0%, var(--gold-2) 50%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.25;
+    }
+
+    .brand p {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .admin-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 9px 15px;
+      border-radius: 13px;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.2s;
+    }
+
+    .admin-btn:hover { background: rgba(255, 255, 255, 0.12); }
+    .admin-btn.active {
+      background: var(--gold-dim);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* Progress & KPI Strip */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 16px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .kpi-card {
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 11px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .kpi-label {
+      font-size: 0.7rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .kpi-val {
+      font-size: 1rem;
+      font-weight: 900;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .kpi-val.gold { color: var(--gold); }
+    .kpi-val.green { color: #34d399; }
+    .kpi-val.cyan { color: var(--cyan); }
+
+    .progress-wrap {
+      margin-top: 14px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.74rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .progress-track {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--green), var(--gold));
+      border-radius: 999px;
+      transition: width 0.4s ease;
+    }
+
+    /* Admin Toolbar */
+    .admin-bar {
+      display: none;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(245, 197, 66, 0.3);
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .admin-bar.show { display: flex; }
+
+    .btn {
+      border: none;
+      border-radius: 12px;
+      padding: 9px 14px;
+      font-family: inherit;
+      font-size: 0.79rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.18s ease;
+    }
+
+    .btn:active { transform: scale(0.96); }
+    .btn-gold { background: linear-gradient(135deg, var(--gold-2), var(--gold)); color: #090d16; box-shadow: 0 4px 14px rgba(245,197,66,0.25); }
+    .btn-green { background: linear-gradient(135deg, #34d399, var(--green)); color: #032116; box-shadow: 0 4px 14px rgba(16,185,129,0.25); }
+    .btn-cyan { background: var(--cyan-dim); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.35); }
+    .btn-ghost { background: rgba(255, 255, 255, 0.06); color: var(--text); border: 1px solid var(--border); }
+    .btn-danger { background: var(--red-dim); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.35); }
+
+    /* Sticky Tabs */
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+      background: rgba(10, 18, 34, 0.9);
+      padding: 6px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      margin-bottom: 18px;
+      position: sticky;
+      top: 10px;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      padding: 11px 6px;
+      border-radius: 13px;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--gold-2), var(--gold));
+      color: #090d16;
+      box-shadow: 0 4px 16px rgba(245, 197, 66, 0.32);
+    }
+
+    .section { display: none; }
+    .section.active { display: block; animation: fadeSlide 0.26s ease; }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Panels */
+    .panel {
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.32);
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .panel-title {
+      font-size: 1.04rem;
+      font-weight: 800;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 11px;
+      border-radius: 999px;
+      background: var(--green-dim);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    /* Standings Table */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+      font-size: 0.85rem;
+    }
+
+    th {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--muted);
+      font-weight: 700;
+      padding: 12px 8px;
+      text-align: center;
+      font-size: 0.76rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 13px 8px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.045);
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    tr.qualified td:first-child {
+      box-shadow: inset -4px 0 0 var(--green);
+    }
+
+    tr.team-row {
+      cursor: pointer;
+      transition: background 0.16s;
+    }
+
+    tr.team-row:hover {
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .rank-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 9px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 0.82rem;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--muted);
+    }
+
+    .rank-1 { background: linear-gradient(135deg, #fde047, #eab308); color: #090d16; box-shadow: 0 0 12px rgba(234, 179, 8, 0.4); }
+    .rank-2 { background: linear-gradient(135deg, #e2e8f0, #94a3b8); color: #090d16; }
+    .rank-3 { background: linear-gradient(135deg, #fdba74, #c2410c); color: #fff; }
+
+    .team-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-align: right;
+      font-weight: 800;
+    }
+
+    .team-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 11px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 0.95rem;
+      color: #fff;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .inline-edit-icon {
+      font-size: 0.72rem;
+      color: var(--gold);
+      background: var(--gold-dim);
+      border: 1px solid var(--border-gold);
+      border-radius: 7px;
+      padding: 2px 7px;
+      cursor: pointer;
+      margin-right: auto;
+    }
+
+    .pts-pill {
+      display: inline-block;
+      min-width: 36px;
+      padding: 4px 9px;
+      border-radius: 9px;
+      background: var(--gold-dim);
+      border: 1px solid rgba(245, 197, 66, 0.3);
+      color: var(--gold);
+      font-weight: 900;
+      font-size: 0.92rem;
+    }
+
+    .form-dots {
+      display: inline-flex;
+      gap: 4px;
+      justify-content: center;
+    }
+
+    .f-dot {
+      width: 21px;
+      height: 21px;
+      border-radius: 6px;
+      font-size: 0.66rem;
+      font-weight: 900;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .f-w { background: rgba(16, 185, 129, 0.22); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.45); }
+    .f-d { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.45); }
+    .f-l { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.45); }
+
+    .hint-text {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* Filter Pills for Rounds */
+    .filter-bar {
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 14px;
+      scrollbar-width: none;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+
+    .filter-chip {
+      white-space: nowrap;
+      padding: 7px 13px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 0.77rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.18s;
+    }
+
+    .filter-chip.active {
+      background: var(--gold-dim);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* Rounds & Matches */
+    .rounds-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 15px;
+    }
+
+    .round-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+    }
+
+    .round-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+      gap: 8px;
+    }
+
+    .round-name {
+      font-weight: 900;
+      color: var(--gold);
+      font-size: 0.96rem;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .rest-pill {
+      font-size: 0.72rem;
+      background: var(--cyan-dim);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .match-box {
+      background: rgba(7, 13, 25, 0.85);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 13px 11px;
+      transition: border-color 0.2s;
+    }
+
+    .match-box.live {
+      border-color: rgba(239, 68, 68, 0.65);
+      box-shadow: 0 0 18px rgba(239, 68, 68, 0.16);
+    }
+
+    .match-top-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .status-tag {
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.67rem;
+    }
+
+    .status-done { background: var(--green-dim); color: #34d399; }
+    .status-next { background: rgba(255, 255, 255, 0.06); color: var(--muted); }
+    .status-live {
+      background: rgba(239, 68, 68, 0.22);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.5);
+      animation: pulseLive 1.4s infinite;
+    }
+
+    @keyframes pulseLive {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .match-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .m-team {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      font-weight: 800;
+      font-size: 0.84rem;
+      text-align: center;
+    }
+
+    .m-team.winner span:last-child { color: var(--gold); }
+
+    .m-score-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.045);
+      padding: 7px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .score-num {
+      font-size: 1.25rem;
+      font-weight: 900;
+      min-width: 22px;
+      text-align: center;
+      color: var(--gold);
+    }
+
+    .score-vs {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .admin-score-ctrl {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .mini-btn {
+      width: 28px;
+      height: 24px;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      background: var(--card-hover);
+      color: var(--text);
+      font-size: 0.95rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .mini-btn:hover { background: var(--gold); color: #090d16; }
+
+    .match-admin-footer {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      flex-wrap: wrap;
+    }
+
+    .tiny-link {
+      background: transparent;
+      border: none;
+      font-family: inherit;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--cyan);
+    }
+
+    .tiny-link.red { color: #f87171; }
+    .tiny-link.gold { color: var(--gold); }
+
+    /* Knockout Bracket */
+    .champion-banner {
+      background: linear-gradient(135deg, rgba(245, 197, 66, 0.22), rgba(16, 185, 129, 0.16));
+      border: 2px solid var(--gold);
+      border-radius: 22px;
+      padding: 24px 16px;
+      text-align: center;
+      margin-bottom: 18px;
+      box-shadow: 0 0 38px rgba(245, 197, 66, 0.22);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .champion-banner .trophy { font-size: 3.1rem; margin-bottom: 6px; }
+    .champion-banner h2 { color: var(--gold-2); font-size: 1.4rem; font-weight: 900; }
+    .champion-banner p { color: var(--text); font-size: 0.88rem; margin-top: 4px; }
+
+    .ko-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 14px;
+    }
+
+    .pen-box {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(245, 197, 66, 0.35);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: var(--gold);
+      font-weight: 700;
+      flex-wrap: wrap;
+    }
+
+    .pen-input {
+      width: 46px;
+      padding: 4px;
+      border-radius: 8px;
+      border: 1px solid var(--gold);
+      background: var(--bg);
+      color: var(--text);
+      text-align: center;
+      font-family: inherit;
+      font-weight: 800;
+    }
+
+    /* Scorers & Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .stat-box {
+      background: rgba(7, 13, 25, 0.78);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .stat-ico {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .scorer-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .scorer-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: rgba(7, 13, 25, 0.8);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 11px 14px;
+    }
+
+    .scorer-left {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .scorer-goals {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-weight: 900;
+      color: var(--gold);
+      font-size: 1rem;
+    }
+
+    /* Modals */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 15, 0.82);
+      backdrop-filter: blur(7px);
+      z-index: 120;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+    }
+
+    .modal-backdrop.open { display: flex; }
+
+    .modal {
+      background: var(--card-solid);
+      border: 1px solid var(--border-gold);
+      border-radius: 22px;
+      width: 100%;
+      max-width: 520px;
+      max-height: 88vh;
+      overflow-y: auto;
+      padding: 20px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.72);
+    }
+
+    .modal h3 {
+      color: var(--gold);
+      font-size: 1.08rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .field { margin-bottom: 13px; }
+    .field label {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 5px;
+      font-weight: 700;
+    }
+
+    .input, select, textarea {
+      width: 100%;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.88rem;
+    }
+
+    .input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    .team-edit-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 11px;
+      margin-bottom: 10px;
+      display: grid;
+      grid-template-columns: 44px 58px 1fr;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .color-input {
+      width: 42px;
+      height: 40px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      background: transparent;
+      cursor: pointer;
+      padding: 2px;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .team-history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 9px 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      margin-bottom: 7px;
+      font-size: 0.82rem;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: linear-gradient(135deg, #34d399, var(--green));
+      color: #032116;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.83rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.25s;
+      z-index: 250;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+      text-align: center;
+      max-width: 92vw;
+    }
+
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 640px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .tab-btn { font-size: 0.72rem; padding: 9px 4px; gap: 3px; }
+      .brand h1 { font-size: 1.24rem; }
+      .brand-emblem { width: 46px; height: 46px; font-size: 22px; }
+      .panel { padding: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="confettiCanvas"></canvas>
+
+  <div class="container">
+    <header class="hero">
+      <div class="hero-top">
+        <div class="brand">
+          <div class="brand-emblem">🏆</div>
+          <div>
+            <h1 id="tourneyTitle">خولی پۆلی ١٢</h1>
+            <p id="tourneySub">قۆناغی کۆمەڵەکان، ڕیزبەندی خاڵەکان، گۆڵکاران و قۆناغی کۆتایی</p>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <button id="adminToggleBtn" class="admin-btn" onclick="handleAdminButton()">
+            🔒 بەڕێوەبەر
+          </button>
+        </div>
+      </div>
+
+      <!-- Live KPI Summary -->
+      <div class="kpi-grid" id="kpiGrid"></div>
+
+      <!-- Progress Bar -->
+      <div class="progress-wrap">
+        <div class="progress-meta">
+          <span id="progressLabel">پێشکەوتنی قۆناغی کۆمەڵەکان</span>
+          <span id="progressCount">0 / 10 یاری</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <!-- Admin Controls -->
+      <div id="adminBar" class="admin-bar">
+        <button class="btn btn-gold" onclick="openTeamsModal()">✏️ گۆڕینی ناوی پۆلەکان</button>
+        <button class="btn btn-green" onclick="openShareModal()">🔗 ناردنی لینکی نوێ</button>
+        <button class="btn btn-cyan" onclick="toggleQualMode()" id="qualModeBtn">🏆 سەرکەوتنی ٤ تیپ</button>
+        <button class="btn btn-ghost" onclick="openSettingsModal()">⚙️ ناونیشان و پاسۆرد</button>
+        <button class="btn btn-danger" onclick="resetScoresConfirm()">🗑️ سفرکردنەوەی ئەنجام</button>
+      </div>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab-btn active" data-tab="standings" onclick="switchTab('standings')">📊 ڕیزبەندی</button>
+      <button class="tab-btn" data-tab="matches" onclick="switchTab('matches')">📅 گەڕەکان</button>
+      <button class="tab-btn" data-tab="knockout" onclick="switchTab('knockout')">🏆 کۆتایی</button>
+      <button class="tab-btn" data-tab="scorers" onclick="switchTab('scorers')">⚽ گۆڵکاران</button>
+    </nav>
+
+    <!-- 1. Standings -->
+    <section id="sec-standings" class="section active">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">📊 خشتەی ڕیزبەندی و خاڵەکان</div>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+            <span class="badge" id="qualBadge">٤ تیپی یەکەم سەردەکەون</span>
+            <button id="quickRenameBtn" class="btn btn-gold" style="display:none;padding:6px 11px;font-size:0.74rem;" onclick="openTeamsModal()">✏️ گۆڕینی ناوی پۆلەکان</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th style="text-align:right">پۆل</th>
+                <th>یاری</th>
+                <th>بردنەوە</th>
+                <th>یەکسان</th>
+                <th>دۆڕان</th>
+                <th>گۆڵ</th>
+                <th>جیاوازی</th>
+                <th>فۆرم</th>
+                <th>خاڵ</th>
+              </tr>
+            </thead>
+            <tbody id="standingsBody"></tbody>
+          </table>
+        </div>
+        <div class="hint-text">
+          <span>🟢 هێڵی سەوز: تیپە سەرکەوتووەکان | فۆرم: ب (بردنەوە)، ی (یەکسان)، د (دۆڕان)</span>
+          <span>💡 کلیک لەسەر هەر پۆلێک بکە بۆ بینینی تەواوی یاری و ئامارەکانی</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Rounds & Matches -->
+    <section id="sec-matches" class="section">
+      <div class="filter-bar" id="roundFilterBar"></div>
+      <div class="rounds-grid" id="roundsGrid"></div>
+    </section>
+
+    <!-- 3. Knockout Stage -->
+    <section id="sec-knockout" class="section">
+      <div id="championBox"></div>
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">🏆 قۆناغی سەرکەوتن و کۆتایی</div>
+          <span class="badge" id="koSubtitle">پێش کۆتایی و یاری کۆتایی</span>
+        </div>
+        <div class="ko-grid" id="koGrid"></div>
+      </div>
+    </section>
+
+    <!-- 4. Top Scorers & Tournament Stats -->
+    <section id="sec-scorers" class="section">
+      <div class="stats-grid" id="awardsGrid"></div>
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">⚽ ڕیزبەندی گۆڵکارانی خول</div>
+          <button id="addScorerBtn" class="btn btn-gold" style="display:none" onclick="openScorerModal()">➕ زیادکردنی گۆڵکار</button>
+        </div>
+        <div class="scorer-list" id="scorersList"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Admin Login Modal -->
+  <div id="loginModal" class="modal-backdrop">
+    <div class="modal">
+      <h3>🔐 چوونەژوورەوەی بەڕێوەبەر</h3>
+      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:12px;">
+        تەنها بەڕێوەبەر دەتوانێت ئەنجامەکان، ناوی پۆلەکان و گۆڵکارەکان دەستکاری بکات. (کۆدی سەرەتایی: <b>1212</b>)
+      </p>
+      <div class="field">
+        <label>وشەی نهێنی بەڕێوەبەر</label>
+        <input type="password" id="pinInput" class="input" placeholder="کۆدەکە بنووسە..." onkeydown="if(event.key==='Enter') submitLogin()" />
+      </div>
+      <div id="loginError" style="color:#f87171;font-size:0.8rem;display:none;margin-bottom:8px;">کۆدەکە هەڵەیە!</div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" onclick="closeModal('loginModal')">داخستن</button>
+        <button class="btn btn-gold" onclick="submitLogin()">چوونەژوورەوە</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dedicated Edit Team Names & Colors Modal -->
+  <div id="teamsModal" class="modal-backdrop">
+    <div class="modal">
+      <h3>✏️ گۆڕینی ناو، پیت و ڕەنگی پۆلەکان</h3>
+      <p style="font-size:0.79rem;color:var(--muted);margin-bottom:12px;">
+        دەتوانیت ڕەنگ، هێمای کورت (وەک ا، ب، ج) و ناوی تەواوی هەر ٥ پۆلەکە بگۆڕیت؛ ڕاستەوخۆ لە هەموو گەڕ و خشتەکاندا دەگۆڕێن:
+      </p>
+      <div id="teamsEditWrap"></div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" onclick="closeModal('teamsModal')">هەڵوەشاندنەوە</button>
+        <button class="btn btn-gold" onclick="saveTeams()">✅ پاشەکەوتکردنی گۆڕانکارییەکان</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div id="settingsModal" class="modal-backdrop">
+    <div class="modal">
+      <h3>⚙️ ڕێکخستنی گشتی خول</h3>
+      <div class="field">
+        <label>ناونیشانی خول</label>
+        <input type="text" id="setTitle" class="input" />
+      </div>
+      <div class="field">
+        <label>ژێرناونیشان (وەسفی خول)</label>
+        <input type="text" id="setSub" class="input" />
+      </div>
+      <div class="field">
+        <label>گۆڕینی وشەی نهێنی بەڕێوەبەر (بەتاڵی بهێڵە ئەگەر ناتەوێت بیگۆڕیت)</label>
+        <input type="password" id="setNewPin" class="input" placeholder="کۆدی نوێ (لانی کەم ٣ ژمارە/پیت)..." />
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" onclick="closeModal('settingsModal')">داخستن</button>
+        <button class="btn btn-gold" onclick="saveSettings()">پاشەکەوتکردن</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Match Info Editor Modal -->
+  <div id="matchMetaModal" class="modal-backdrop">
+    <div class="modal">
+      <h3 id="matchMetaTitle">🕒 کات و زانیاری یاری</h3>
+      <div class="field">
+        <label>کات یان ڕۆژی یاری (بۆ نموونە: یەکشەممە ١٠:٣٠)</label>
+        <input type="text" id="matchTimeInput" class="input" placeholder="ڕۆژ و کاتژمێر..." />
+      </div>
+      <div class="field">
+        <label>دۆخی یاری</label>
+        <select id="matchLiveInput">
+          <option value="normal">ئاسایی</option>
+          <option value="live">🔴 یارییەکە ئێستا ڕاستەوخۆیە (LIVE)</option>
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" onclick="closeModal('matchMetaModal')">داخستن</button>
+        <button class="btn btn-gold" onclick="saveMatchMeta()">پاشەکەوتکردن</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add/Edit Scorer Modal -->
+  <div id="scorerModal" class="modal-backdrop">
+    <div class="modal">
+      <h3>⚽ زیادکردنی گۆڵکار</h3>
+      <div class="field">
+        <label>ناوی یاریزان</label>
+        <input type="text" id="scorerNameInput" class="input" placeholder="بۆ نموونە: کاروان..." />
+      </div>
+      <div class="field">
+        <label>پۆل</label>
+        <select id="scorerTeamSelect"></select>
+      </div>
+      <div class="field">
+        <label>ژمارەی گۆڵەکان</label>
+        <input type="number" id="scorerGoalsInput" class="input" min="1" value="1" />
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" onclick="closeModal('scorerModal')">داخستن</button>
+        <button class="btn btn-gold" onclick="saveNewScorer()">زیادکردن</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team Details Modal (for visitors & admin) -->
+  <div id="teamDetailModal" class="modal-backdrop">
+    <div class="modal">
+      <h3 id="teamDetailTitle">📊 ئاماری پۆل</h3>
+      <div id="teamDetailBody"></div>
+      <div class="modal-actions">
+        <button class="btn btn-gold" onclick="closeModal('teamDetailModal')">داخستن</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Share Updated Link Modal -->
+  <div id="shareModal" class="modal-backdrop">
+    <div class="modal">
+      <h3>🔗 ناردنی لینکی نوێکراوە بۆ قوتابییەکان</h3>
+      <p style="font-size:0.81rem;color:var(--muted);margin-bottom:12px;">
+        هەر کات ئەنجامی یارییەک یان ناوی پۆلێکت گۆڕی، ئەم لینکە کۆپی بکە و لە گرووپی پۆل دایبنێ تا هەموو قوتابییەکان ڕاستەوخۆ دوایین گۆڕانکارییەکان ببینن (بەبێ ئەوەی بتوانن دەستکاری بکەن):
+      </p>
+      <div class="field">
+        <textarea id="shareLinkBox" rows="4" readonly style="direction:ltr;font-size:0.76rem;"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" onclick="closeModal('shareModal')">داخستن</button>
+        <button class="btn btn-green" onclick="copyShareLink()">📋 کۆپیکردنی لینک</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    const STORAGE_KEY = 'kholi_poli_12_pro_v1';
+
+    function createDefaultState() {
+      return {
+        title: 'خولی پۆلی ١٢',
+        subtitle: 'قۆناغی کۆمەڵەکان، ڕیزبەندی خاڵەکان، گۆڵکاران و قۆناغی کۆتایی',
+        pin: '1212',
+        qualifyCount: 4,
+        teams: {
+          A: { id: 'A', code: 'ا',  name: 'پۆلی ا',  color: '#2563eb' },
+          B: { id: 'B', code: 'ب',  name: 'پۆلی ب',  color: '#059669' },
+          C: { id: 'C', code: 'ج',  name: 'پۆلی ج',  color: '#d97706' },
+          D: { id: 'D', code: 'د',  name: 'پۆلی د',  color: '#dc2626' },
+          E: { id: 'E', code: 'هـ', name: 'پۆلی هـ', color: '#7c3aed' }
+        },
+        rounds: [
+          {
+            id: 1, name: 'گەڕی یەکەم', rest: 'C',
+            matches: [
+              { id: 'r1m1', home: 'A', away: 'E', hs: null, as: null, time: '', live: false },
+              { id: 'r1m2', home: 'B', away: 'D', hs: null, as: null, time: '', live: false }
+            ]
+          },
+          {
+            id: 2, name: 'گەڕی دووەم', rest: 'B',
+            matches: [
+              { id: 'r2m1', home: 'E', away: 'D', hs: null, as: null, time: '', live: false },
+              { id: 'r2m2', home: 'A', away: 'C', hs: null, as: null, time: '', live: false }
+            ]
+          },
+          {
+            id: 3, name: 'گەڕی سێیەم', rest: 'A',
+            matches: [
+              { id: 'r3m1', home: 'D', away: 'C', hs: null, as: null, time: '', live: false },
+              { id: 'r3m2', home: 'E', away: 'B', hs: null, as: null, time: '', live: false }
+            ]
+          },
+          {
+            id: 4, name: 'گەڕی چوارەم', rest: 'E',
+            matches: [
+              { id: 'r4m1', home: 'C', away: 'B', hs: null, as: null, time: '', live: false },
+              { id: 'r4m2', home: 'A', away: 'D', hs: null, as: null, time: '', live: false }
+            ]
+          },
+          {
+            id: 5, name: 'گەڕی پێنجەم', rest: 'D',
+            matches: [
+              { id: 'r5m1', home: 'A', away: 'B', hs: null, as: null, time: '', live: false },
+              { id: 'r5m2', home: 'C', away: 'E', hs: null, as: null, time: '', live: false }
+            ]
+          }
+        ],
+        knockout: {
+          sf1: { hs: null, as: null, hp: null, ap: null },
+          sf2: { hs: null, as: null, hp: null, ap: null },
+          third: { hs: null, as: null, hp: null, ap: null },
+          final: { hs: null, as: null, hp: null, ap: null }
+        },
+        scorers: []
+      };
+    }
+
+    let isAdmin = false;
+    let activeRoundFilter = 'all';
+    let editingMatchRef = null;
+    let lastChampionId = null;
+    let state = loadInitialState();
+
+    function encodeStateToHash(obj) {
+      const clean = JSON.parse(JSON.stringify(obj));
+      delete clean.pin;
+      const json = JSON.stringify(clean);
+      const bytes = new TextEncoder().encode(json);
+      let bin = '';
+      bytes.forEach(b => bin += String.fromCharCode(b));
+      return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    }
+
+    function decodeStateFromHash(str) {
+      try {
+        let b64 = str.replace(/-/g, '+').replace(/_/g, '/');
+        while (b64.length % 4) b64 += '=';
+        const bin = atob(b64);
+        const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+        const json = new TextDecoder().decode(bytes);
+        return JSON.parse(json);
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function loadInitialState() {
+      const def = createDefaultState();
+      if (window.location.hash && window.location.hash.startsWith('#s=')) {
+        const shared = decodeStateFromHash(window.location.hash.slice(3));
+        if (shared && shared.teams && shared.rounds) {
+          let localPin = def.pin;
+          try {
+            const savedLocal = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+            if (savedLocal.pin) localPin = savedLocal.pin;
+          } catch (e) {}
+          return {
+            ...def,
+            ...shared,
+            knockout: { ...def.knockout, ...(shared.knockout || {}) },
+            scorers: Array.isArray(shared.scorers) ? shared.scorers : [],
+            pin: localPin
+          };
+        }
+      }
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          return {
+            ...def,
+            ...parsed,
+            knockout: { ...def.knockout, ...(parsed.knockout || {}) },
+            scorers: Array.isArray(parsed.scorers) ? parsed.scorers : []
+          };
+        }
+      } catch (e) {}
+      return def;
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function escapeHtml(str) {
+      return String(str ?? '').replace(/[&<>"']/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+    }
+
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById('sec-' + tab).classList.add('active');
+    }
+
+    function getHeadToHeadResult(idA, idB) {
+      for (const r of state.rounds) {
+        for (const m of r.matches) {
+          if (m.hs === null || m.as === null) continue;
+          if (m.home === idA && m.away === idB) return m.hs - m.as;
+          if (m.home === idB && m.away === idA) return m.as - m.hs;
+        }
+      }
+      return 0;
+    }
+
+    function computeStandings() {
+      const ids = ['A', 'B', 'C', 'D', 'E'];
+      const map = {};
+      ids.forEach(id => {
+        map[id] = { id, played: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0, form: [], cleanSheets: 0 };
+      });
+
+      state.rounds.forEach(r => {
+        r.matches.forEach(m => {
+          if (m.hs !== null && m.as !== null) {
+            const h = map[m.home];
+            const a = map[m.away];
+            h.played++; a.played++;
+            h.gf += m.hs; h.ga += m.as;
+            a.gf += m.as; a.ga += m.hs;
+            if (m.as === 0) h.cleanSheets++;
+            if (m.hs === 0) a.cleanSheets++;
+            if (m.hs > m.as) {
+              h.w++; h.pts += 3; h.form.push('W');
+              a.l++; a.form.push('L');
+            } else if (m.hs < m.as) {
+              a.w++; a.pts += 3; a.form.push('W');
+              h.l++; h.form.push('L');
+            } else {
+              h.d++; a.d++; h.pts += 1; a.pts += 1;
+              h.form.push('D'); a.form.push('D');
+            }
+          }
+        });
+      });
+
+      const list = Object.values(map).map(x => ({ ...x, gd: x.gf - x.ga }));
+      list.sort((x, y) => {
+        if (y.pts !== x.pts) return y.pts - x.pts;
+        if (y.gd !== x.gd) return y.gd - x.gd;
+        if (y.gf !== x.gf) return y.gf - x.gf;
+        const h2h = getHeadToHeadResult(y.id, x.id);
+        if (h2h !== 0) return h2h;
+        return ids.indexOf(x.id) - ids.indexOf(y.id);
+      });
+      return list;
+    }
+
+    function renderAll() {
+      document.getElementById('tourneyTitle').textContent = state.title;
+      document.getElementById('tourneySub').textContent = state.subtitle;
+      document.getElementById('adminBar').classList.toggle('show', isAdmin);
+      document.getElementById('quickRenameBtn').style.display = isAdmin ? 'inline-flex' : 'none';
+      document.getElementById('addScorerBtn').style.display = isAdmin ? 'inline-flex' : 'none';
+
+      const ab = document.getElementById('adminToggleBtn');
+      ab.classList.toggle('active', isAdmin);
+      ab.innerHTML = isAdmin ? '🔓 دەرچوون' : '🔒 بەڕێوەبەر';
+
+      document.getElementById('qualModeBtn').textContent = state.qualifyCount === 4 ? '🏆 سەرکەوتنی ٤ تیپ' : '🏆 سەرکەوتنی ٢ تیپ';
+      document.getElementById('qualBadge').textContent = state.qualifyCount === 4 ? '٤ تیپی یەکەم سەردەکەون' : '٢ تیپی یەکەم سەردەکەون';
+
+      const standings = computeStandings();
+      renderHeroKPIs(standings);
+      renderStandings(standings);
+      renderRoundFilters();
+      renderRounds();
+      renderKnockout(standings);
+      renderScorersAndAwards(standings);
+    }
+
+    function renderHeroKPIs(standings) {
+      let playedMatches = 0;
+      let totalGoals = 0;
+      state.rounds.forEach(r => r.matches.forEach(m => {
+        if (m.hs !== null && m.as !== null) {
+          playedMatches++;
+          totalGoals += m.hs + m.as;
+        }
+      }));
+
+      const pct = Math.round((playedMatches / 10) * 100);
+      document.getElementById('progressCount').textContent = `${playedMatches} / 10 یاری (${pct}%)`;
+      document.getElementById('progressFill').style.width = pct + '%';
+
+      const leader = playedMatches > 0 ? state.teams[standings[0].id].name : 'دەستی پێنەکردووە';
+      const bestAtkObj = [...standings].sort((a, b) => b.gf - a.gf)[0];
+      const bestAtk = playedMatches > 0 ? `${state.teams[bestAtkObj.id].name} (${bestAtkObj.gf})` : '—';
+      const avgGoals = playedMatches > 0 ? (totalGoals / playedMatches).toFixed(1) : '0.0';
+
+      document.getElementById('kpiGrid').innerHTML = `
+        <div class="kpi-card">
+          <span class="kpi-label">👑 پێشەنگی خول</span>
+          <span class="kpi-val gold">${escapeHtml(leader)}</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">⚽ کۆی گۆڵەکان</span>
+          <span class="kpi-val green">${totalGoals} گۆڵ</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">🔥 بەهێزترین هێرش</span>
+          <span class="kpi-val cyan">${escapeHtml(bestAtk)}</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">📈 تێکڕای گۆڵ / یاری</span>
+          <span class="kpi-val">${avgGoals}</span>
+        </div>
+      `;
+    }
+
+    function renderStandings(list) {
+      const tbody = document.getElementById('standingsBody');
+      tbody.innerHTML = list.map((row, idx) => {
+        const t = state.teams[row.id];
+        const qual = idx < state.qualifyCount ? 'qualified' : '';
+        const rankCls = idx === 0 ? 'rank-1' : idx === 1 ? 'rank-2' : idx === 2 ? 'rank-3' : '';
+        const gdStr = row.gd > 0 ? '+' + row.gd : row.gd;
+        const formHtml = row.form.length
+          ? row.form.slice(-4).map(f => {
+              if (f === 'W') return '<span class="f-dot f-w">ب</span>';
+              if (f === 'D') return '<span class="f-dot f-d">ی</span>';
+              return '<span class="f-dot f-l">د</span>';
+            }).join('')
+          : '<span style="color:var(--muted);font-size:0.74rem;">—</span>';
+
+        return `
+          <tr class="team-row ${qual}" onclick="openTeamDetail('${row.id}')">
+            <td><span class="rank-badge ${rankCls}">${idx + 1}</span></td>
+            <td>
+              <div class="team-cell">
+                <span class="team-avatar" style="background:${t.color}">${escapeHtml(t.code)}</span>
+                <span>${escapeHtml(t.name)}</span>
+                ${isAdmin ? `<button class="inline-edit-icon" onclick="event.stopPropagation();openTeamsModal('${row.id}')">✏️ ناو</button>` : ''}
+              </div>
+            </td>
+            <td>${row.played}</td>
+            <td style="color:#34d399;font-weight:700">${row.w}</td>
+            <td style="color:#fbbf24">${row.d}</td>
+            <td style="color:#f87171">${row.l}</td>
+            <td>${row.gf}:${row.ga}</td>
+            <td style="color:${row.gd > 0 ? '#34d399' : row.gd < 0 ? '#f87171' : 'var(--muted)'};font-weight:700">${gdStr}</td>
+            <td><div class="form-dots">${formHtml}</div></td>
+            <td><span class="pts-pill">${row.pts}</span></td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderRoundFilters() {
+      const chips = [
+        { id: 'all', label: 'هەموو گەڕەکان' },
+        { id: '1', label: 'گەڕی ١' },
+        { id: '2', label: 'گەڕی ٢' },
+        { id: '3', label: 'گەڕی ٣' },
+        { id: '4', label: 'گەڕی ٤' },
+        { id: '5', label: 'گەڕی ٥' },
+        { id: 'pending', label: 'ماوەکان' },
+        { id: 'done', label: 'تەواوبووەکان' }
+      ];
+      document.getElementById('roundFilterBar').innerHTML = chips.map(c =>
+        `<button class="filter-chip ${activeRoundFilter === c.id ? 'active' : ''}" onclick="setRoundFilter('${c.id}')">${c.label}</button>`
+      ).join('');
+    }
+
+    function setRoundFilter(f) {
+      activeRoundFilter = f;
+      renderRoundFilters();
+      renderRounds();
+    }
+
+    function renderRounds() {
+      const grid = document.getElementById('roundsGrid');
+      const cards = [];
+
+      state.rounds.forEach((r, rIdx) => {
+        if (['1','2','3','4','5'].includes(activeRoundFilter) && String(r.id) !== activeRoundFilter) return;
+
+        const filteredMatches = r.matches.map((m, mIdx) => ({ m, mIdx })).filter(({ m }) => {
+          const played = m.hs !== null && m.as !== null;
+          if (activeRoundFilter === 'pending') return !played;
+          if (activeRoundFilter === 'done') return played;
+          return true;
+        });
+
+        if (!filteredMatches.length) return;
+
+        const restTeam = state.teams[r.rest];
+        const matchesHtml = filteredMatches.map(({ m, mIdx }) => {
+          const h = state.teams[m.home];
+          const a = state.teams[m.away];
+          const played = m.hs !== null && m.as !== null;
+          const hWin = played && m.hs > m.as;
+          const aWin = played && m.as > m.hs;
+
+          let statusHtml = '<span class="status-tag status-next">یاری داهاتوو</span>';
+          if (m.live) statusHtml = '<span class="status-tag status-live">● ڕاستەوخۆ LIVE</span>';
+          else if (played) statusHtml = '<span class="status-tag status-done">✓ تەواوبوو</span>';
+
+          const scoreSection = isAdmin ? `
+            <div class="m-score-wrap">
+              <div class="admin-score-ctrl">
+                <button class="mini-btn" onclick="changeGroupScore(${rIdx},${mIdx},'h',1)">+</button>
+                <span class="score-num">${played ? m.hs : '-'}</span>
+                <button class="mini-btn" onclick="changeGroupScore(${rIdx},${mIdx},'h',-1)">-</button>
+              </div>
+              <span class="score-vs">×</span>
+              <div class="admin-score-ctrl">
+                <button class="mini-btn" onclick="changeGroupScore(${rIdx},${mIdx},'a',1)">+</button>
+                <span class="score-num">${played ? m.as : '-'}</span>
+                <button class="mini-btn" onclick="changeGroupScore(${rIdx},${mIdx},'a',-1)">-</button>
+              </div>
+            </div>
+          ` : `
+            <div class="m-score-wrap">
+              <span class="score-num">${played ? m.hs : '-'}</span>
+              <span class="score-vs">×</span>
+              <span class="score-num">${played ? m.as : '-'}</span>
+            </div>
+          `;
+
+          return `
+            <div class="match-box ${m.live ? 'live' : ''}">
+              <div class="match-top-meta">
+                <span>${m.time ? '🕒 ' + escapeHtml(m.time) : '🏟️ خولی پۆلی ١٢'}</span>
+                ${statusHtml}
+              </div>
+              <div class="match-row">
+                <div class="m-team ${hWin ? 'winner' : ''}">
+                  <span class="team-avatar" style="background:${h.color}">${escapeHtml(h.code)}</span>
+                  <span>${escapeHtml(h.name)}</span>
+                </div>
+                ${scoreSection}
+                <div class="m-team ${aWin ? 'winner' : ''}">
+                  <span class="team-avatar" style="background:${a.color}">${escapeHtml(a.code)}</span>
+                  <span>${escapeHtml(a.name)}</span>
+                </div>
+              </div>
+              ${isAdmin ? `
+                <div class="match-admin-footer">
+                  <button class="tiny-link" onclick="openMatchMeta(${rIdx},${mIdx})">🕒 کات / LIVE</button>
+                  ${played ? `<button class="tiny-link red" onclick="clearGroupMatch(${rIdx},${mIdx})">× سڕینەوەی ئەنجام</button>` : ''}
+                </div>
+              ` : ''}
+            </div>
+          `;
+        }).join('');
+
+        cards.push(`
+          <div class="round-card">
+            <div class="round-head">
+              <span class="round-name">📅 ${r.name}</span>
+              <span class="rest-pill">پشوو: ${escapeHtml(restTeam.name)}</span>
+            </div>
+            ${matchesHtml}
+          </div>
+        `);
+      });
+
+      grid.innerHTML = cards.length
+        ? cards.join('')
+        : `<div class="panel" style="grid-column:1/-1;text-align:center;color:var(--muted);">هیچ یارییەک لەم فلتەرەدا نەدۆزرایەوە.</div>`;
+    }
+
+    function changeGroupScore(rIdx, mIdx, side, delta) {
+      const m = state.rounds[rIdx].matches[mIdx];
+      if (m.hs === null || m.as === null) {
+        m.hs = 0; m.as = 0;
+        if (delta > 0) {
+          if (side === 'h') m.hs = 1;
+          else m.as = 1;
+        }
+      } else {
+        if (side === 'h') m.hs = Math.max(0, m.hs + delta);
+        else m.as = Math.max(0, m.as + delta);
+      }
+      saveState();
+      renderAll();
+    }
+
+    function clearGroupMatch(rIdx, mIdx) {
+      const m = state.rounds[rIdx].matches[mIdx];
+      m.hs = null; m.as = null; m.live = false;
+      saveState();
+      renderAll();
+    }
+
+    function openMatchMeta(rIdx, mIdx) {
+      editingMatchRef = { rIdx, mIdx };
+      const m = state.rounds[rIdx].matches[mIdx];
+      const h = state.teams[m.home], a = state.teams[m.away];
+      document.getElementById('matchMetaTitle').textContent = `🕒 ${h.name} × ${a.name}`;
+      document.getElementById('matchTimeInput').value = m.time || '';
+      document.getElementById('matchLiveInput').value = m.live ? 'live' : 'normal';
+      openModal('matchMetaModal');
+    }
+
+    function saveMatchMeta() {
+      if (!editingMatchRef) return;
+      const m = state.rounds[editingMatchRef.rIdx].matches[editingMatchRef.mIdx];
+      m.time = document.getElementById('matchTimeInput').value.trim();
+      m.live = document.getElementById('matchLiveInput').value === 'live';
+      saveState();
+      closeModal('matchMetaModal');
+      renderRounds();
+      showToast('✅ زانیاری یارییەکە نوێکرایەوە');
+    }
+
+    function getKoWinner(koObj, homeId, awayId) {
+      if (!homeId || !awayId) return null;
+      if (koObj.hs === null || koObj.as === null) return null;
+      if (koObj.hs > koObj.as) return homeId;
+      if (koObj.as > koObj.hs) return awayId;
+      if (koObj.hp !== null && koObj.ap !== null && koObj.hp !== koObj.ap) {
+        return koObj.hp > koObj.ap ? homeId : awayId;
+      }
+      return null;
+    }
+
+    function getKoLoser(koObj, homeId, awayId) {
+      const w = getKoWinner(koObj, homeId, awayId);
+      if (!w) return null;
+      return w === homeId ? awayId : homeId;
+    }
+
+    function renderKnockout(standings) {
+      const grid = document.getElementById('koGrid');
+      const champBox = document.getElementById('championBox');
+      const sub = document.getElementById('koSubtitle');
+
+      let html = '';
+      let finalHome = null;
+      let finalAway = null;
+      let thirdHome = null;
+      let thirdAway = null;
+
+      if (state.qualifyCount === 4) {
+        sub.textContent = 'پێش کۆتایی (١×٤ و ٢×٣)، پلەی سێیەم و یاری کۆتایی';
+        const sf1H = standings[0].id, sf1A = standings[3].id;
+        const sf2H = standings[1].id, sf2A = standings[2].id;
+        html += renderKoCard('پێش کۆتایی ١ (یەکەم × چوارەم)', 'sf1', sf1H, sf1A);
+        html += renderKoCard('پێش کۆتایی ٢ (دووەم × سێیەم)', 'sf2', sf2H, sf2A);
+        finalHome = getKoWinner(state.knockout.sf1, sf1H, sf1A);
+        finalAway = getKoWinner(state.knockout.sf2, sf2H, sf2A);
+        thirdHome = getKoLoser(state.knockout.sf1, sf1H, sf1A);
+        thirdAway = getKoLoser(state.knockout.sf2, sf2H, sf2A);
+        html += renderKoCard('🥉 یاری پلەی سێیەم', 'third', thirdHome, thirdAway);
+      } else {
+        sub.textContent = 'یاری کۆتایی ڕاستەوخۆ (یەکەم × دووەم)';
+        finalHome = standings[0].id;
+        finalAway = standings[1].id;
+      }
+
+      html += renderKoCard('🏆 یاری کۆتایی', 'final', finalHome, finalAway, true);
+      grid.innerHTML = html;
+
+      const champId = getKoWinner(state.knockout.final, finalHome, finalAway);
+      if (champId) {
+        const c = state.teams[champId];
+        champBox.innerHTML = `
+          <div class="champion-banner">
+            <div class="trophy">🏆✨👑</div>
+            <h2>پاڵەوانی ${escapeHtml(state.title)}: ${escapeHtml(c.name)}</h2>
+            <p>پیرۆزە! بە شیاوی نازناوی پاڵەوانێتییان بەدەستهێنا</p>
+          </div>
+        `;
+        if (lastChampionId !== champId) {
+          lastChampionId = champId;
+          launchConfetti();
+        }
+      } else {
+        lastChampionId = null;
+        champBox.innerHTML = '';
+      }
+    }
+
+    function renderKoCard(label, key, homeId, awayId, isFinal = false) {
+      const ko = state.knockout[key];
+      const h = homeId ? state.teams[homeId] : { code: '؟', name: 'دیارینەکراوە', color: '#334155' };
+      const a = awayId ? state.teams[awayId] : { code: '؟', name: 'دیارینەکراوە', color: '#334155' };
+      const played = ko.hs !== null && ko.as !== null;
+      const isDraw = played && ko.hs === ko.as;
+      const canEdit = isAdmin && homeId && awayId;
+      const winnerId = getKoWinner(ko, homeId, awayId);
+
+      const scoreSection = canEdit ? `
+        <div class="m-score-wrap">
+          <div class="admin-score-ctrl">
+            <button class="mini-btn" onclick="changeKoScore('${key}','h',1)">+</button>
+            <span class="score-num">${played ? ko.hs : '-'}</span>
+            <button class="mini-btn" onclick="changeKoScore('${key}','h',-1)">-</button>
+          </div>
+          <span class="score-vs">×</span>
+          <div class="admin-score-ctrl">
+            <button class="mini-btn" onclick="changeKoScore('${key}','a',1)">+</button>
+            <span class="score-num">${played ? ko.as : '-'}</span>
+            <button class="mini-btn" onclick="changeKoScore('${key}','a',-1)">-</button>
+          </div>
+        </div>
+      ` : `
+        <div class="m-score-wrap">
+          <span class="score-num">${played ? ko.hs : '-'}</span>
+          <span class="score-vs">×</span>
+          <span class="score-num">${played ? ko.as : '-'}</span>
+        </div>
+      `;
+
+      let penHtml = '';
+      if (isDraw) {
+        if (canEdit) {
+          penHtml = `
+            <div class="pen-box">
+              <span>لێدانی سزا:</span>
+              <input class="pen-input" type="number" min="0" value="${ko.hp ?? ''}" placeholder="0" onchange="setKoPen('${key}','h',this.value)" />
+              <span>×</span>
+              <input class="pen-input" type="number" min="0" value="${ko.ap ?? ''}" placeholder="0" onchange="setKoPen('${key}','a',this.value)" />
+            </div>
+          `;
+        } else if (ko.hp !== null && ko.ap !== null) {
+          penHtml = `<div class="pen-box">لێدانی سزا: ${ko.hp} × ${ko.ap}</div>`;
+        }
+      }
+
+      return `
+        <div class="round-card" style="${isFinal ? 'border-color:rgba(245,197,66,0.6);box-shadow:0 0 24px rgba(245,197,66,0.12);' : ''}">
+          <div class="round-head">
+            <span class="round-name">${label}</span>
+            ${canEdit && played ? `<button class="tiny-link red" onclick="clearKoMatch('${key}')">× سڕینەوە</button>` : ''}
+          </div>
+          <div class="match-box">
+            <div class="match-row">
+              <div class="m-team ${winnerId && winnerId === homeId ? 'winner' : ''}">
+                <span class="team-avatar" style="background:${h.color}">${escapeHtml(h.code)}</span>
+                <span>${escapeHtml(h.name)}</span>
+              </div>
+              ${scoreSection}
+              <div class="m-team ${winnerId && winnerId === awayId ? 'winner' : ''}">
+                <span class="team-avatar" style="background:${a.color}">${escapeHtml(a.code)}</span>
+                <span>${escapeHtml(a.name)}</span>
+              </div>
+            </div>
+            ${penHtml}
+          </div>
+        </div>
+      `;
+    }
+
+    function changeKoScore(key, side, delta) {
+      const ko = state.knockout[key];
+      if (ko.hs === null || ko.as === null) {
+        ko.hs = 0; ko.as = 0;
+        if (delta > 0) {
+          if (side === 'h') ko.hs = 1;
+          else ko.as = 1;
+        }
+      } else {
+        if (side === 'h') ko.hs = Math.max(0, ko.hs + delta);
+        else ko.as = Math.max(0, ko.as + delta);
+      }
+      if (ko.hs !== ko.as) { ko.hp = null; ko.ap = null; }
+      saveState();
+      renderAll();
+    }
+
+    function setKoPen(key, side, val) {
+      const ko = state.knockout[key];
+      const n = val === '' ? null : Math.max(0, parseInt(val, 10) || 0);
+      if (side === 'h') ko.hp = n; else ko.ap = n;
+      saveState();
+      renderAll();
+    }
+
+    function clearKoMatch(key) {
+      state.knockout[key] = { hs: null, as: null, hp: null, ap: null };
+      saveState();
+      renderAll();
+    }
+
+    // Scorers & Awards
+    function renderScorersAndAwards(standings) {
+      const playedList = standings.filter(s => s.played > 0);
+      const bestAtk = playedList.length ? [...playedList].sort((a, b) => b.gf - a.gf)[0] : null;
+      const bestDef = playedList.length ? [...playedList].sort((a, b) => a.ga - b.ga)[0] : null;
+      const bestCS = playedList.length ? [...playedList].sort((a, b) => b.cleanSheets - a.cleanSheets)[0] : null;
+
+      document.getElementById('awardsGrid').innerHTML = `
+        <div class="stat-box">
+          <div class="stat-ico" style="background:var(--gold-dim);color:var(--gold);">🔥</div>
+          <div>
+            <div class="kpi-label">بەهێزترین هێرش</div>
+            <div class="kpi-val">${bestAtk ? escapeHtml(state.teams[bestAtk.id].name) + ' (' + bestAtk.gf + ' گۆڵ)' : '—'}</div>
+          </div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-ico" style="background:var(--green-dim);color:#34d399;">🛡️</div>
+          <div>
+            <div class="kpi-label">بەهێزترین بەرگری</div>
+            <div class="kpi-val">${bestDef ? escapeHtml(state.teams[bestDef.id].name) + ' (' + bestDef.ga + ' گۆڵ لێی)' : '—'}</div>
+          </div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-ico" style="background:var(--cyan-dim);color:var(--cyan);">🧤</div>
+          <div>
+            <div class="kpi-label">زۆرترین کلین شیت</div>
+            <div class="kpi-val">${bestCS ? escapeHtml(state.teams[bestCS.id].name) + ' (' + bestCS.cleanSheets + ')' : '—'}</div>
+          </div>
+        </div>
+      `;
+
+      const sorted = [...state.scorers].sort((a, b) => b.goals - a.goals);
+      const box = document.getElementById('scorersList');
+      if (!sorted.length) {
+        box.innerHTML = `<div style="text-align:center;padding:24px;color:var(--muted);font-size:0.84rem;">
+          هێشتا هیچ گۆڵکارێک تۆمار نەکراوە.${isAdmin ? ' کلیک لە "زیادکردنی گۆڵکار" بکە.' : ''}
+        </div>`;
+        return;
+      }
+
+      box.innerHTML = sorted.map((s, idx) => {
+        const t = state.teams[s.team] || state.teams.A;
+        const rankCls = idx === 0 ? 'rank-1' : idx === 1 ? 'rank-2' : idx === 2 ? 'rank-3' : '';
+        return `
+          <div class="scorer-item">
+            <div class="scorer-left">
+              <span class="rank-badge ${rankCls}">${idx + 1}</span>
+              <span class="team-avatar" style="background:${t.color};width:32px;height:32px;font-size:0.84rem;">${escapeHtml(t.code)}</span>
+              <div>
+                <div style="font-weight:800;font-size:0.9rem;">${escapeHtml(s.name)}</div>
+                <div style="font-size:0.72rem;color:var(--muted);">${escapeHtml(t.name)}</div>
+              </div>
+            </div>
+            <div class="scorer-goals">
+              ${isAdmin ? `<button class="mini-btn" onclick="changeScorerGoals('${s.id}',1)">+</button>` : ''}
+              <span>⚽ ${s.goals}</span>
+              ${isAdmin ? `<button class="mini-btn" onclick="changeScorerGoals('${s.id}',-1)">-</button>` : ''}
+              ${isAdmin ? `<button class="tiny-link red" onclick="deleteScorer('${s.id}')" style="margin-right:4px;">🗑️</button>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openScorerModal() {
+      document.getElementById('scorerNameInput').value = '';
+      document.getElementById('scorerGoalsInput').value = '1';
+      document.getElementById('scorerTeamSelect').innerHTML = ['A','B','C','D','E'].map(id =>
+        `<option value="${id}">${escapeHtml(state.teams[id].name)}</option>`
+      ).join('');
+      openModal('scorerModal');
+    }
+
+    function saveNewScorer() {
+      const name = document.getElementById('scorerNameInput').value.trim();
+      const team = document.getElementById('scorerTeamSelect').value;
+      const goals = Math.max(1, parseInt(document.getElementById('scorerGoalsInput').value, 10) || 1);
+      if (!name) return showToast('تکایە ناوی یاریزان بنووسە');
+      state.scorers.push({ id: 'sc_' + Date.now(), name, team, goals });
+      saveState();
+      closeModal('scorerModal');
+      renderAll();
+      showToast('✅ گۆڵکارەکە زیادکرا');
+    }
+
+    function changeScorerGoals(id, delta) {
+      const sc = state.scorers.find(x => x.id === id);
+      if (!sc) return;
+      sc.goals = Math.max(0, sc.goals + delta);
+      saveState();
+      renderAll();
+    }
+
+    function deleteScorer(id) {
+      state.scorers = state.scorers.filter(x => x.id !== id);
+      saveState();
+      renderAll();
+      showToast('گۆڵکارەکە سڕایەوە');
+    }
+
+    // Team Detail Modal (stats + matches history)
+    function openTeamDetail(teamId) {
+      const t = state.teams[teamId];
+      const standings = computeStandings();
+      const row = standings.find(x => x.id === teamId);
+      const rank = standings.findIndex(x => x.id === teamId) + 1;
+
+      document.getElementById('teamDetailTitle').innerHTML = `
+        <span class="team-avatar" style="background:${t.color};width:34px;height:34px;">${escapeHtml(t.code)}</span>
+        <span>${escapeHtml(t.name)} — پلەی ${rank}</span>
+      `;
+
+      const matchesHtml = state.rounds.map(r => {
+        if (r.rest === teamId) {
+          return `<div class="team-history-item"><span>${r.name}</span><span class="rest-pill">پشوو</span></div>`;
+        }
+        const m = r.matches.find(x => x.home === teamId || x.away === teamId);
+        const oppId = m.home === teamId ? m.away : m.home;
+        const opp = state.teams[oppId];
+        const played = m.hs !== null && m.as !== null;
+        const myG = m.home === teamId ? m.hs : m.as;
+        const opG = m.home === teamId ? m.as : m.hs;
+        let resTag = '<span style="color:var(--muted)">داهاتوو</span>';
+        if (played) {
+          const color = myG > opG ? '#34d399' : myG < opG ? '#f87171' : '#fbbf24';
+          resTag = `<strong style="color:${color};font-size:0.95rem;">${myG} × ${opG}</strong>`;
+        }
+        return `
+          <div class="team-history-item">
+            <span>${r.name}: بەرامبەر <b>${escapeHtml(opp.name)}</b></span>
+            ${resTag}
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('teamDetailBody').innerHTML = `
+        <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr);margin-top:0;margin-bottom:14px;">
+          <div class="kpi-card"><span class="kpi-label">خاڵ</span><span class="kpi-val gold">${row.pts}</span></div>
+          <div class="kpi-card"><span class="kpi-label">گۆڵ (بۆ:لەسەر)</span><span class="kpi-val">${row.gf}:${row.ga}</span></div>
+          <div class="kpi-card"><span class="kpi-label">جیاوازی</span><span class="kpi-val green">${row.gd > 0 ? '+'+row.gd : row.gd}</span></div>
+        </div>
+        <div style="font-size:0.82rem;color:var(--gold);font-weight:800;margin-bottom:8px;">📅 خشتەی یارییەکانی ${escapeHtml(t.name)}:</div>
+        ${matchesHtml}
+      `;
+      openModal('teamDetailModal');
+    }
+
+    // Team Name & Color Editor
+    function openTeamsModal(focusId = null) {
+      const wrap = document.getElementById('teamsEditWrap');
+      wrap.innerHTML = ['A','B','C','D','E'].map(id => {
+        const t = state.teams[id];
+        return `
+          <div class="team-edit-card">
+            <input type="color" class="color-input" id="tcolor_${id}" value="${t.color}" title="ڕەنگی پۆل" />
+            <input type="text" class="input" id="tcode_${id}" value="${escapeHtml(t.code)}" maxlength="3" style="text-align:center;font-weight:900;padding:8px 4px;" placeholder="پیت" />
+            <input type="text" class="input" id="tname_${id}" value="${escapeHtml(t.name)}" placeholder="ناوی پۆل..." />
+          </div>
+        `;
+      }).join('');
+      openModal('teamsModal');
+      if (focusId) {
+        setTimeout(() => {
+          const el = document.getElementById('tname_' + focusId);
+          if (el) { el.focus(); el.select(); }
+        }, 120);
+      }
+    }
+
+    function saveTeams() {
+      ['A','B','C','D','E'].forEach(id => {
+        const name = document.getElementById('tname_' + id).value.trim();
+        const code = document.getElementById('tcode_' + id).value.trim();
+        const color = document.getElementById('tcolor_' + id).value;
+        if (name) state.teams[id].name = name;
+        if (code) state.teams[id].code = code;
+        if (color) state.teams[id].color = color;
+      });
+      saveState();
+      closeModal('teamsModal');
+      renderAll();
+      showToast('✅ ناو و ڕەنگی پۆلەکان نوێکرانەوە');
+    }
+
+    // Admin Login & General Settings
+    function handleAdminButton() {
+      if (isAdmin) {
+        isAdmin = false;
+        renderAll();
+        showToast('دەرچوویت لە دۆخی بەڕێوەبەر');
+      } else {
+        document.getElementById('pinInput').value = '';
+        document.getElementById('loginError').style.display = 'none';
+        openModal('loginModal');
+        setTimeout(() => document.getElementById('pinInput').focus(), 100);
+      }
+    }
+
+    function submitLogin() {
+      const val = document.getElementById('pinInput').value.trim();
+      if (val === state.pin) {
+        isAdmin = true;
+        closeModal('loginModal');
+        renderAll();
+        showToast('بەخێربێیت! ئێستا دەتوانیت هەموو شتێک دەستکاری بکەیت');
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+      }
+    }
+
+    function openSettingsModal() {
+      document.getElementById('setTitle').value = state.title;
+      document.getElementById('setSub').value = state.subtitle;
+      document.getElementById('setNewPin').value = '';
+      openModal('settingsModal');
+    }
+
+    function saveSettings() {
+      const title = document.getElementById('setTitle').value.trim();
+      const sub = document.getElementById('setSub').value.trim();
+      const newPin = document.getElementById('setNewPin').value.trim();
+      if (title) state.title = title;
+      if (sub) state.subtitle = sub;
+      if (newPin.length >= 3) state.pin = newPin;
+      saveState();
+      closeModal('settingsModal');
+      renderAll();
+      showToast('✅ ڕێکخستنەکان پاشەکەوت کران');
+    }
+
+    function toggleQualMode() {
+      state.qualifyCount = state.qualifyCount === 4 ? 2 : 4;
+      saveState();
+      renderAll();
+      showToast(state.qualifyCount === 4 ? 'شێوازی سەرکەوتن بوو بە ٤ تیپ' : 'شێوازی سەرکەوتن بوو بە ٢ تیپ');
+    }
+
+    function resetScoresConfirm() {
+      if (!confirm('دڵنیایت دەتەوێت هەموو ئەنجامی یارییەکان سفر بکەیتەوە؟ (ناوی پۆلەکان ناسڕێنەوە)')) return;
+      state.rounds.forEach(r => r.matches.forEach(m => { m.hs = null; m.as = null; m.live = false; }));
+      state.knockout = {
+        sf1: { hs: null, as: null, hp: null, ap: null },
+        sf2: { hs: null, as: null, hp: null, ap: null },
+        third: { hs: null, as: null, hp: null, ap: null },
+        final: { hs: null, as: null, hp: null, ap: null }
+      };
+      saveState();
+      renderAll();
+      showToast('هەموو ئەنجامەکان سفر کرانەوە');
+    }
+
+    function openShareModal() {
+      const base = window.location.href.split('#')[0];
+      const url = base + '#s=' + encodeStateToHash(state);
+      document.getElementById('shareLinkBox').value = url;
+      openModal('shareModal');
+    }
+
+    function copyShareLink() {
+      const box = document.getElementById('shareLinkBox');
+      box.select();
+      box.setSelectionRange(0, 99999);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(box.value).then(() => {
+          showToast('✅ لینکەکە کۆپی کرا! دەتوانیت بینێریت بۆ قوتابییەکان');
+        }).catch(() => {
+          document.execCommand('copy');
+          showToast('✅ لینکەکە کۆپی کرا!');
+        });
+      } else {
+        document.execCommand('copy');
+        showToast('✅ لینکەکە کۆپی کرا!');
+      }
+    }
+
+    // Subtle Golden Confetti on Champion Crowned
+    function launchConfetti() {
+      const canvas = document.getElementById('confettiCanvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      const colors = ['#f5c542', '#34d399', '#38bdf8', '#ffffff', '#fbbf24'];
+      const pieces = Array.from({ length: 85 }, () => ({
+        x: Math.random() * canvas.width,
+        y: -20 - Math.random() * 200,
+        r: 4 + Math.random() * 6,
+        dx: (Math.random() - 0.5) * 3,
+        dy: 2.5 + Math.random() * 4,
+        rot: Math.random() * 360,
+        drot: (Math.random() - 0.5) * 10,
+        color: colors[Math.floor(Math.random() * colors.length)]
+      }));
+
+      let frames = 0;
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        pieces.forEach(p => {
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rot * Math.PI) / 180);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.r / 2, -p.r / 2, p.r, p.r * 0.6);
+          ctx.restore();
+          p.x += p.dx;
+          p.y += p.dy;
+          p.rot += p.drot;
+        });
+        frames++;
+        if (frames < 170) requestAnimationFrame(draw);
+        else ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+      draw();
+    }
+
+    function openModal(id) { document.getElementById(id).classList.add('open'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+    document.querySelectorAll('.modal-backdrop').forEach(el => {
+      el.addEventListener('click', e => {
+        if (e.target === el) el.classList.remove('open');
+      });
+    });
+
+    renderAll();
+  </script>
+</body>
+</html>
